@@ -22,7 +22,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         
-        _context = SynchronizationContext.Current;
+        _context = SynchronizationContext.Current!;
     }
 
     private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
