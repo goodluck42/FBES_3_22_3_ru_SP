@@ -9,7 +9,6 @@ class Person
     public string? LastName { get; set; }
 }
 
-
 interface IPersonManager
 {
     void AddPerson(Person person);
@@ -139,7 +138,7 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        IPersonManager manager = new JsonPersonManager("persons.json");
+        IPersonManager manager = new LocalPersonManager();
         
         var addTask = manager.AddPersonAsync(new Person()
         {
@@ -147,17 +146,23 @@ class Program
             FirstName = "Vladik",
             LastName = "Petrov"
         });
-
+        
+        await addTask;
+        
         var getTask = manager.GetPersonByIdAsync(1);
+
+        await getTask;
         
         Console.WriteLine($"main: {Thread.CurrentThread.ManagedThreadId}");
 
-        await addTask;
-        var person = await getTask;
 
-        Console.WriteLine(person.Id);
-        Console.WriteLine(person.FirstName);
-        Console.WriteLine(person.LastName);
+
+        // await addTask;
+        // var person = await getTask;
+        //
+        // Console.WriteLine(person.Id);
+        // Console.WriteLine(person.FirstName);
+        // Console.WriteLine(person.LastName);
 
         // var result = Task.Run(() =>
         // {
